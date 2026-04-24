@@ -20,4 +20,8 @@ public class Task {
     private boolean completed;
 
     public Task(String title) {}
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 }

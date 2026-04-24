@@ -64,7 +64,7 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now(),
                 500,
                 "Internal Server Error",
-                "Something went wrong",
+                "Something went wrong: " +  ex.getMessage(),
                 request.getRequestURI()
         );
 
