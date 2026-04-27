@@ -13,15 +13,16 @@ import java.util.Collections;
 
 public class JwtFilter extends OncePerRequestFilter {
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+        return path.startsWith("/auth"); // ignora login/register
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String header = request.getHeader("Authorization");
 
         String path = request.getRequestURI();
-
-        if (path.startsWith("/auth")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
 
         if (header == null || !header.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
